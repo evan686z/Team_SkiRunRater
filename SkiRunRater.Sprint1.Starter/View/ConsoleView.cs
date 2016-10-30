@@ -143,6 +143,29 @@ namespace SkiRunRater
             return skiRunID;
         }
 
+        public static SkiRun AddSkiRun()
+        {
+            SkiRun skiRun = new SkiRun();
+            DisplayReset();
+
+            DisplayMessage("");
+            Console.WriteLine(ConsoleUtil.Center("Add A Ski Run", WINDOW_WIDTH));
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run ID: ");
+            skiRun.ID = ConsoleUtil.ValidateIntResponse("Please enter the ski run ID: ", Console.ReadLine());
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run name: ");
+            skiRun.Name = Console.ReadLine();
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run vertical in feet: ");
+            skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please the ski run vertical in feet: ", Console.ReadLine());
+
+            return skiRun;
+        }
+
         /// <summary>
         /// reset display to default size and colors including the header
         /// </summary>

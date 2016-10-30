@@ -65,7 +65,6 @@ namespace SkiRunRater
                             //
                             skiRunID = ConsoleView.GetSkiRunID(skiRuns);
                             skiRunRepository.DeleteSkiRun(skiRunID);
-
                             ConsoleView.DisplayReset();
                             message = String.Format("Ski Run ID: {0} had been deleted.", skiRunID);
                             ConsoleView.DisplayMessage(message);
@@ -73,6 +72,9 @@ namespace SkiRunRater
                             ConsoleView.DisplayReset();
                             break;
                         case AppEnum.ManagerAction.AddSkiRun:
+                            skiRun = ConsoleView.AddSkiRun();
+                            skiRunRepository.InsertSkiRun(skiRun);
+                            ConsoleView.DisplayContinuePrompt();
                             break;
                         case AppEnum.ManagerAction.UpdateSkiRun:
                             break;
