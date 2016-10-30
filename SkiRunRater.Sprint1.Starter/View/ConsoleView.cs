@@ -189,8 +189,8 @@ namespace SkiRunRater
             Console.Clear();
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Cyan;
 
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
             Console.WriteLine(ConsoleUtil.Center("Welcome to", WINDOW_WIDTH));
