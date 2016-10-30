@@ -84,9 +84,9 @@ namespace SkiRunRater
         /// <param name="skiRun"></param>
         public void InsertSkiRun(SkiRun skiRun)
         {
-            string skiRunString;
+            _skiRuns.Add(skiRun);
 
-            skiRunString = skiRun.ID + "," + skiRun.Name + "," + skiRun.Vertical;
+            WriteSkiRunsData();
 
 
         }

@@ -60,7 +60,8 @@ namespace SkiRunRater
             DisplayMessage("");
             Console.WriteLine(
                 leftTab + "1. Display All Ski Runs Information" + Environment.NewLine +
-                leftTab + "2. Delete the Ski Run with ID = 1" + Environment.NewLine +
+                leftTab + "2. Delete the Ski Run  by ID" + Environment.NewLine +
+                leftTab + "3. Add a Ski Run by ID." + Environment.NewLine +
                 leftTab + "E. Exit" + Environment.NewLine);
 
             DisplayMessage("");
@@ -74,6 +75,9 @@ namespace SkiRunRater
                     break;
                 case '2':
                     userActionChoice = AppEnum.ManagerAction.DeleteSkiRun;
+                    break;
+                case '3':
+                    userActionChoice = AppEnum.ManagerAction.AddSkiRun;
                     break;
                 case 'E':
                 case 'e':
@@ -123,6 +127,43 @@ namespace SkiRunRater
 
                 DisplayMessage(skiRunInfo.ToString());
             }
+        }
+
+        public static int GetSkiRunID(List<SkiRun> skiRuns)
+        {
+            int skiRunID = -1;
+
+            DisplayAllSkiRuns(skiRuns);
+
+            DisplayMessage("");
+            DisplayPromptMessage("Enter the ski run ID: ");
+
+            skiRunID = ConsoleUtil.ValidateIntResponse("Please enter the ski run ID: ", Console.ReadLine());
+
+            return skiRunID;
+        }
+
+        public static SkiRun AddSkiRun()
+        {
+            SkiRun skiRun = new SkiRun();
+            DisplayReset();
+
+            DisplayMessage("");
+            Console.WriteLine(ConsoleUtil.Center("Add A Ski Run", WINDOW_WIDTH));
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run ID: ");
+            skiRun.ID = ConsoleUtil.ValidateIntResponse("Please enter the ski run ID: ", Console.ReadLine());
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run name: ");
+            skiRun.Name = Console.ReadLine();
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter the ski run vertical in feet: ");
+            skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please the ski run vertical in feet: ", Console.ReadLine());
+
+            return skiRun;
         }
 
         /// <summary>

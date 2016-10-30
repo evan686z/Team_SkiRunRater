@@ -90,5 +90,24 @@ namespace SkiRunRater
 
             return newStr;
         }
+        public static int ValidateIntResponse(string promptMessage, string userResponse)
+        {
+            int userResponseInteger = 0;
+
+            while (!(int.TryParse(userResponse, out userResponseInteger)))
+            {
+                ConsoleView.DisplayReset();
+
+                ConsoleView.DisplayMessage("");
+                ConsoleView.DisplayMessage("Please enter a valid integer.");
+
+                ConsoleView.DisplayMessage("");
+                ConsoleView.DisplayPromptMessage(promptMessage);
+                userResponse = Console.ReadLine();
+            }
+
+
+            return userResponseInteger;
+        }
     }
 }
