@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -112,9 +112,18 @@ namespace SkiRunRater
         /// method to update an existing ski run
         /// </summary>
         /// <param name="skiRun">ski run object</param>
-        public void UpdateSkiRun(int ID)
+        public void UpdateSkiRun(int ID, SkiRun skiRun)
         {
+            for (int index = 0; index < _skiRuns.Count(); index++)
+            {
+                if (_skiRuns[index].ID == ID)
+                {
+                    DeleteSkiRun(skiRun.ID);
+                    InsertSkiRun(skiRun);
 
+                    WriteSkiRunsData();
+                }
+            }
         }
 
         /// <summary>

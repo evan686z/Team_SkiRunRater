@@ -62,6 +62,7 @@ namespace SkiRunRater
                 leftTab + "1. Display All Ski Runs Information" + Environment.NewLine +
                 leftTab + "2. Delete the Ski Run  by ID" + Environment.NewLine +
                 leftTab + "3. Add a Ski Run by ID." + Environment.NewLine +
+                leftTab + "4. Update a Ski Run by ID" + Environment.NewLine +
                 leftTab + "E. Exit" + Environment.NewLine);
 
             DisplayMessage("");
@@ -78,6 +79,9 @@ namespace SkiRunRater
                     break;
                 case '3':
                     userActionChoice = AppEnum.ManagerAction.AddSkiRun;
+                    break;
+                case '4':
+                    userActionChoice = AppEnum.ManagerAction.UpdateSkiRun;
                     break;
                 case 'E':
                 case 'e':
@@ -162,6 +166,37 @@ namespace SkiRunRater
 
             DisplayPromptMessage("Enter the ski run vertical in feet: ");
             skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please the ski run vertical in feet: ", Console.ReadLine());
+
+            return skiRun;
+        }
+
+        public static SkiRun UpdateSkiRun(SkiRun skiRun)
+        {
+            string updateSkiRun = "";
+            DisplayReset();
+
+            DisplayMessage("");
+            Console.WriteLine(ConsoleUtil.Center("Update A Ski Run", WINDOW_WIDTH));
+            DisplayMessage("");
+
+            DisplayMessage(String.Format("Ski Run Name: {0}", skiRun.Name));
+            DisplayPromptMessage("Enter a new ski run name or press ENTER to keep current name: ");
+            updateSkiRun = Console.ReadLine();
+            if (updateSkiRun != "")
+            {
+                skiRun.Name = updateSkiRun;
+            }
+            DisplayMessage("");
+
+            DisplayMessage(String.Format("Current Vertical in Feet: {0}", skiRun.Vertical.ToString()));
+            DisplayPromptMessage("Enter the new vertical in feet or just press ENTER to keep the current value: ");
+            updateSkiRun = Console.ReadLine();
+            if (updateSkiRun != "")
+            {
+                skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please enter the vertical in feet.", updateSkiRun);
+            }
+
+            DisplayContinuePrompt();
 
             return skiRun;
         }
