@@ -39,6 +39,9 @@ namespace SkiRunRater
             using (skiRunRepository)
             {
                 List<SkiRun> skiRuns = skiRunRepository.GetSkiAllRuns();
+                int skiRunID;
+                SkiRun skiRun;
+                string message;
 
                 while (active)
                 {
@@ -60,16 +63,42 @@ namespace SkiRunRater
                             //
                             // TODO write a ConsoleView method to get the ski run ID
                             //
-                            skiRunRepository.DeleteSkiRun(1);
+                            skiRunID = ConsoleView.GetSkiRunID(skiRuns);
+                            skiRunRepository.DeleteSkiRun(skiRunID);
                             ConsoleView.DisplayReset();
-                            ConsoleView.DisplayMessage("Ski Run ID: 1 had been deleted.");
+                            message = String.Format("Ski Run ID: {0} has been deleted.", skiRunID);
+                            ConsoleView.DisplayMessage(message);
                             ConsoleView.DisplayContinuePrompt();
+                            ConsoleView.DisplayReset();
                             break;
                         case AppEnum.ManagerAction.AddSkiRun:
+                            skiRun = ConsoleView.AddSkiRun();
+                            skiRunRepository.InsertSkiRun(skiRun);
+                            ConsoleView.DisplayContinuePrompt();
                             break;
                         case AppEnum.ManagerAction.UpdateSkiRun:
+                            skiRunID = ConsoleView.GetSkiRunID(skiRuns);
+                            skiRun = skiRunRepository.GetSkiRunByID(skiRunID);
+                            skiRun = ConsoleView.UpdateSkiRun(skiRun);
+                            skiRunRepository.UpdateSkiRun(skiRun);
+
+                            ConsoleView.DisplayReset();
+                            message = String.Format("Ski Run: {0} has been updated.", skiRun.Name);
+                            ConsoleView.DisplayMessage(message);
+                            ConsoleView.DisplayContinuePrompt();
+                            ConsoleView.DisplayReset();
                             break;
                         case AppEnum.ManagerAction.QuerySkiRunsByVertical:
+                            List<SkiRun> matchingSkiRuns = new List<SkiRun>();
+
+                            int minVertical;
+                            int maxVertical;
+                            ConsoleView.QueryVerticals(out minVertical, out maxVertical);
+
+                            matchingSkiRuns = skiRunRepository.QueryByVertical(minVertical, maxVertical);
+
+                            ConsoleView.DisplayQueryResults(matchingSkiRuns);
+                            ConsoleView.DisplayContinuePrompt();
                             break;
                         case AppEnum.ManagerAction.Quit:
                             active = false;

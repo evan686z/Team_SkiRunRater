@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -84,11 +84,8 @@ namespace SkiRunRater
         /// <param name="skiRun"></param>
         public void InsertSkiRun(SkiRun skiRun)
         {
-            string skiRunString;
-
-            skiRunString = skiRun.ID + "," + skiRun.Name + "," + skiRun.Vertical;
-
-
+            _skiRuns.Add(skiRun);
+            WriteSkiRunsData();
         }
 
         /// <summary>
@@ -112,11 +109,35 @@ namespace SkiRunRater
         /// method to update an existing ski run
         /// </summary>
         /// <param name="skiRun">ski run object</param>
-        public void UpdateSkiRun(int ID)
+        public void UpdateSkiRun(SkiRun skiRun)
         {
+            //delete old string from list based on ID
+            DeleteSkiRun(skiRun.ID);
+            
+            //add new data using updated info from user inputs
+            InsertSkiRun(skiRun);
 
+            WriteSkiRunsData();
         }
+        /// <summary>
+        /// get a index number of ski run from list
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        private int GetSkiRunIndex(int ID)
+        {
+            int skiRunIndex = 0;
 
+            for (int index = 0; index < _skiRuns.Count(); index++)
+            {
+                if (_skiRuns[index].ID == ID)
+                {
+                    skiRunIndex = index;
+                }
+            }
+
+            return skiRunIndex;
+        }
         /// <summary>
         /// method to return a ski run object given the ID
         /// </summary>
@@ -125,7 +146,7 @@ namespace SkiRunRater
         public SkiRun GetSkiRunByID(int ID)
         {
             SkiRun skiRun = null;
-
+            skiRun = _skiRuns[GetSkiRunIndex(ID)];
             return skiRun;
         }
 
@@ -141,13 +162,19 @@ namespace SkiRunRater
         /// <summary>
         /// method to query the data by the vertical of each ski run in feet
         /// </summary>
-        /// <param name="minimumVertical">int minimum vertical</param>
-        /// <param name="maximumVertical">int maximum vertical</param>
+        /// <param name="minVertical">int minimum vertical</param>
+        /// <param name="maxVertical">int maximum vertical</param>
         /// <returns></returns>
-        public List<SkiRun> QueryByVertical(int minimumVertical, int maximumVertical)
+        public List<SkiRun> QueryByVertical(int minVertical, int maxVertical)
         {
             List<SkiRun> matchingSkiRuns = new List<SkiRun>();
-
+            foreach (var SkiRun in _skiRuns)
+            {
+                if ((SkiRun.Vertical >= minVertical) && (SkiRun.Vertical <= maxVertical))
+                {
+                    matchingSkiRuns.Add(SkiRun);
+                }
+            }
             return matchingSkiRuns;
         }
 
