@@ -184,7 +184,7 @@ namespace SkiRunRater
             DisplayMessage("");
 
             DisplayMessage(String.Format("Ski Run Name: {0}", skiRun.Name));
-            DisplayPromptMessage("Enter a new ski run name or press ENTER to keep current name: ");
+            DisplayPromptMessage("Change the ski run name or press ENTER to keep current name: ");
             updateSkiRun = Console.ReadLine();
             if (updateSkiRun != "")
             {
@@ -192,12 +192,12 @@ namespace SkiRunRater
             }
             DisplayMessage("");
 
-            DisplayMessage(String.Format("Current Vertical in Feet: {0}", skiRun.Vertical.ToString()));
-            DisplayPromptMessage("Enter the new vertical in feet or press ENTER to keep the current value: ");
+            DisplayMessage(String.Format("Current Height in Feet: {0}", skiRun.Vertical.ToString()));
+            DisplayPromptMessage("Enter new height or press ENTER to keep the current value: ");
             updateSkiRun = Console.ReadLine();
             if (updateSkiRun != "")
             {
-                skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please enter the vertical in feet.", updateSkiRun);
+                skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please enter the height in feet.", updateSkiRun);
             }
 
             return skiRun;

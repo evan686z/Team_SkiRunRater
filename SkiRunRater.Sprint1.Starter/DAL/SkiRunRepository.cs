@@ -10,6 +10,7 @@ namespace SkiRunRater
 {
     /// <summary>
     /// method to write all ski run information to the date file
+    /// using IDisposable interface
     /// </summary>
     public class SkiRunRepository : IDisposable
     {
@@ -151,7 +152,7 @@ namespace SkiRunRater
         }
 
         /// <summary>
-        /// method to return a list of ski run objects
+        /// method to return the LOCATION of the ski run objects
         /// </summary>
         /// <returns>list of ski run objects</returns>
         public List<SkiRun> GetSkiAllRuns()
@@ -160,10 +161,10 @@ namespace SkiRunRater
         }
 
         /// <summary>
-        /// method to query the data by the vertical of each ski run in feet
+        /// method to query the data by the height of each ski run in feet
         /// </summary>
-        /// <param name="minVertical">int minimum vertical</param>
-        /// <param name="maxVertical">int maximum vertical</param>
+        /// <param name="minVertical">int min vertical</param>
+        /// <param name="maxVertical">int max vertical</param>
         /// <returns></returns>
         public List<SkiRun> QueryByVertical(int minVertical, int maxVertical)
         {
