@@ -112,20 +112,32 @@ namespace SkiRunRater
         /// method to update an existing ski run
         /// </summary>
         /// <param name="skiRun">ski run object</param>
-        public void UpdateSkiRun(int ID, SkiRun skiRun)
+        public void UpdateSkiRun(SkiRun skiRun)
         {
+            DeleteSkiRun(skiRun.ID);
+            InsertSkiRun(skiRun);
+
+            WriteSkiRunsData();
+        }
+        /// <summary>
+        /// get a index number of ski run from list
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        private int GetSkiRunIndex(int ID)
+        {
+            int skiRunIndex = 0;
+
             for (int index = 0; index < _skiRuns.Count(); index++)
             {
                 if (_skiRuns[index].ID == ID)
                 {
-                    DeleteSkiRun(skiRun.ID);
-                    InsertSkiRun(skiRun);
-
-                    WriteSkiRunsData();
+                    skiRunIndex = index;
                 }
             }
-        }
 
+            return skiRunIndex;
+        }
         /// <summary>
         /// method to return a ski run object given the ID
         /// </summary>
@@ -134,6 +146,8 @@ namespace SkiRunRater
         public SkiRun GetSkiRunByID(int ID)
         {
             SkiRun skiRun = null;
+
+            skiRun = _skiRuns[GetSkiRunIndex(ID)];
 
             return skiRun;
         }

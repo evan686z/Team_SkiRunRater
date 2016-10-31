@@ -171,7 +171,7 @@ namespace SkiRunRater
         }
 
         public static SkiRun UpdateSkiRun(SkiRun skiRun)
-        {
+        {   //GetSkiRunID = 
             string updateSkiRun = "";
             DisplayReset();
 

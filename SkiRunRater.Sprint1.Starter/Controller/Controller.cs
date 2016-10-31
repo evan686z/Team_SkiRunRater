@@ -82,7 +82,7 @@ namespace SkiRunRater
 
                             skiRun = ConsoleView.UpdateSkiRun(skiRun);
 
-                            skiRunRepository.UpdateSkiRun(skiRun.ID, skiRun);
+                            skiRunRepository.UpdateSkiRun(skiRun);
                             break;
                         case AppEnum.ManagerAction.QuerySkiRunsByVertical:
                             break;
