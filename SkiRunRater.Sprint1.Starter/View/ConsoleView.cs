@@ -10,7 +10,7 @@ namespace SkiRunRater
     public static class ConsoleView
     {
         #region ENUMERABLES
-
+        
 
         #endregion
 
@@ -61,6 +61,10 @@ namespace SkiRunRater
             Console.WriteLine(
                 leftTab + "1. Display All Ski Runs Information" + Environment.NewLine +
                 leftTab + "2. Delete the Ski Run with ID = 1" + Environment.NewLine +
+                leftTab + "3. Add a Ski Run" + Environment.NewLine +
+                leftTab + "4. Display Ski Run Detail" + Environment.NewLine +
+                leftTab + "5. Query Skin Run by Vertical" + Environment.NewLine +
+                leftTab + "6. Update Ski Run" + Environment.NewLine +
                 leftTab + "E. Exit" + Environment.NewLine);
 
             DisplayMessage("");
@@ -71,9 +75,22 @@ namespace SkiRunRater
             {
                 case '1':
                     userActionChoice = AppEnum.ManagerAction.ListAllSkiRuns;
+
                     break;
                 case '2':
                     userActionChoice = AppEnum.ManagerAction.DeleteSkiRun;
+                    break;
+                case '3':
+                    userActionChoice = AppEnum.ManagerAction.AddSkiRun;
+                    break;
+                case '4':
+                    userActionChoice = AppEnum.ManagerAction.DisplaySkiRunDetail;
+                    break;
+                case '5':
+                    userActionChoice = AppEnum.ManagerAction.QuerySkiRunsByVertical;
+                    break;
+                case '6':
+                    userActionChoice = AppEnum.ManagerAction.UpdateSkiRun;
                     break;
                 case 'E':
                 case 'e':
@@ -123,6 +140,38 @@ namespace SkiRunRater
 
                 DisplayMessage(skiRunInfo.ToString());
             }
+        }
+
+        public static void DisplaySkiRunDetail()
+        {
+
+        }
+
+        public static void Add()
+        {
+            SkiRun skiRun = new SkiRun();
+            Console.WriteLine("Please enter Ski Run ID: ");
+            skiRun.ID = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Please enter Ski Run Name: ");
+            skiRun.Name = Console.ReadLine();
+
+            Console.WriteLine("Please enter The Vertical in Feet: ");
+            var message = Console.ReadLine();
+            skiRun.Vertical = ConsoleUtil.ValidateIntegerResponse(message, Console.ReadLine());
+
+            
+        }
+
+
+        public static void Query()
+        {
+
+        }
+
+        public static void Update()
+        {
+
         }
 
         /// <summary>
