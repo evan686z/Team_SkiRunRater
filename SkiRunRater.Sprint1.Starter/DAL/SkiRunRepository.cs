@@ -84,9 +84,9 @@ namespace SkiRunRater
         /// <param name="skiRun"></param>
         public void InsertSkiRun(SkiRun skiRun)
         {
-            _skiRuns.Add(skiRun);
+            string skiRunString;
 
-            WriteSkiRunsData();
+            skiRunString = skiRun.ID + "," + skiRun.Name + "," + skiRun.Vertical;
 
 
         }
@@ -112,15 +112,9 @@ namespace SkiRunRater
         /// method to update an existing ski run
         /// </summary>
         /// <param name="skiRun">ski run object</param>
-        public void UpdateSkiRun(SkiRun skiRun, int ID)
+        public void UpdateSkiRun(int ID)
         {
-            for (int index = 0; index < _skiRuns.Count(); index++)
-            {
-                if (_skiRuns[index].ID == ID)
-                {
-                    _skiRuns.RemoveAt(index);
-                }
-            }
+
         }
 
         /// <summary>
@@ -154,14 +148,6 @@ namespace SkiRunRater
         {
             List<SkiRun> matchingSkiRuns = new List<SkiRun>();
 
-
-            foreach (SkiRun skiRun in _skiRuns)
-            {
-                if (skiRun.Vertical >= minimumVertical)
-                {
-                    matchingSkiRuns.Add(skiRun);
-                }
-            }
             return matchingSkiRuns;
         }
 
