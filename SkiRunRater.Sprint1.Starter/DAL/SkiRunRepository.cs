@@ -85,10 +85,7 @@ namespace SkiRunRater
         public void InsertSkiRun(SkiRun skiRun)
         {
             _skiRuns.Add(skiRun);
-
             WriteSkiRunsData();
-
-
         }
 
         /// <summary>
@@ -114,7 +111,10 @@ namespace SkiRunRater
         /// <param name="skiRun">ski run object</param>
         public void UpdateSkiRun(SkiRun skiRun)
         {
+            //delete old string from list based on ID
             DeleteSkiRun(skiRun.ID);
+            
+            //add new data using updated info from user inputs
             InsertSkiRun(skiRun);
 
             WriteSkiRunsData();
@@ -146,9 +146,7 @@ namespace SkiRunRater
         public SkiRun GetSkiRunByID(int ID)
         {
             SkiRun skiRun = null;
-
             skiRun = _skiRuns[GetSkiRunIndex(ID)];
-
             return skiRun;
         }
 
@@ -164,13 +162,19 @@ namespace SkiRunRater
         /// <summary>
         /// method to query the data by the vertical of each ski run in feet
         /// </summary>
-        /// <param name="minimumVertical">int minimum vertical</param>
-        /// <param name="maximumVertical">int maximum vertical</param>
+        /// <param name="minVertical">int minimum vertical</param>
+        /// <param name="maxVertical">int maximum vertical</param>
         /// <returns></returns>
-        public List<SkiRun> QueryByVertical(int minimumVertical, int maximumVertical)
+        public List<SkiRun> QueryByVertical(int minVertical, int maxVertical)
         {
             List<SkiRun> matchingSkiRuns = new List<SkiRun>();
-
+            foreach (var SkiRun in _skiRuns)
+            {
+                if ((SkiRun.Vertical >= minVertical) && (SkiRun.Vertical <= maxVertical))
+                {
+                    matchingSkiRuns.Add(SkiRun);
+                }
+            }
             return matchingSkiRuns;
         }
 

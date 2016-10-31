@@ -63,6 +63,7 @@ namespace SkiRunRater
                 leftTab + "2. Delete the Ski Run  by ID" + Environment.NewLine +
                 leftTab + "3. Add a Ski Run by ID." + Environment.NewLine +
                 leftTab + "4. Update a Ski Run by ID" + Environment.NewLine +
+                leftTab + "5. Search Ski Runs by Height" + Environment.NewLine +
                 leftTab + "E. Exit" + Environment.NewLine);
 
             DisplayMessage("");
@@ -82,6 +83,9 @@ namespace SkiRunRater
                     break;
                 case '4':
                     userActionChoice = AppEnum.ManagerAction.UpdateSkiRun;
+                    break;
+                case '5':
+                    userActionChoice = AppEnum.ManagerAction.QuerySkiRunsByVertical;
                     break;
                 case 'E':
                 case 'e':
@@ -189,17 +193,87 @@ namespace SkiRunRater
             DisplayMessage("");
 
             DisplayMessage(String.Format("Current Vertical in Feet: {0}", skiRun.Vertical.ToString()));
-            DisplayPromptMessage("Enter the new vertical in feet or just press ENTER to keep the current value: ");
+            DisplayPromptMessage("Enter the new vertical in feet or press ENTER to keep the current value: ");
             updateSkiRun = Console.ReadLine();
             if (updateSkiRun != "")
             {
                 skiRun.Vertical = ConsoleUtil.ValidateIntResponse("Please enter the vertical in feet.", updateSkiRun);
             }
 
-            DisplayContinuePrompt();
-
             return skiRun;
         }
+        /// <summary>
+        /// get search range from user input
+        /// </summary>
+        /// <param name="minVertical"></param>
+        /// <param name="maxVertical"></param>
+        public static void QueryVerticals(out int minVertical, out int maxVertical)
+        {
+            string queryResponse = "";
+
+            DisplayReset();
+            DisplayMessage("");
+            Console.WriteLine(ConsoleUtil.Center("Query Ski Runs by Vertical Height", WINDOW_WIDTH));
+            DisplayMessage("");
+
+            DisplayPromptMessage("Enter min Vertical Height to search: ");
+            queryResponse = Console.ReadLine();
+            if (int.TryParse(queryResponse, out minVertical))
+            {
+                DisplayMessage("");      
+            }
+            else
+            {
+                DisplayMessage("Please enter a valid Height as an integer!");
+            }
+
+            DisplayPromptMessage("Enter max Vertical Height to search: ");
+            queryResponse = Console.ReadLine();
+            if (int.TryParse(queryResponse, out maxVertical))
+            {
+                DisplayMessage("");
+            }
+            else
+            {
+                DisplayMessage("Please enter a valid Height as an integer!");
+            }
+
+            DisplayMessage(String.Format("You have set the following query paramaters: {0} Min Height - {1} Max Height.", minVertical, maxVertical));
+            DisplayContinuePrompt();
+        }
+
+        public static void DisplayQueryResults(List<SkiRun> matchingSkiRuns)
+        {
+            DisplayReset();
+
+            DisplayMessage("");
+            Console.WriteLine(ConsoleUtil.Center("Display Ski Run Query Results", WINDOW_WIDTH));
+            DisplayMessage("");
+
+            DisplayMessage("All of the ski runs within the search range are displayed below;");
+            DisplayMessage("");
+
+            StringBuilder columnHeader = new StringBuilder();
+
+            columnHeader.Append("ID".PadRight(8));
+            columnHeader.Append("Ski Run".PadRight(25));
+            columnHeader.Append("Vertical Height".PadRight(5));
+
+            DisplayMessage(columnHeader.ToString());
+
+            foreach (SkiRun skiRun in matchingSkiRuns)
+            {
+                StringBuilder skiRunInfo = new StringBuilder();
+
+                skiRunInfo.Append(skiRun.ID.ToString().PadRight(8));
+                skiRunInfo.Append(skiRun.Name.PadRight(25));
+                skiRunInfo.Append(skiRun.Vertical.ToString().PadRight(5));
+
+                DisplayMessage(skiRunInfo.ToString());
+            }
+
+        }
+
 
         /// <summary>
         /// reset display to default size and colors including the header
@@ -211,8 +285,8 @@ namespace SkiRunRater
             Console.Clear();
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Cyan;
 
             Console.WriteLine(ConsoleUtil.FillStringWithSpaces(WINDOW_WIDTH));
             Console.WriteLine(ConsoleUtil.Center("The Ski Run Rater", WINDOW_WIDTH));
@@ -262,6 +336,8 @@ namespace SkiRunRater
         /// </summary>
         public static void DisplayWelcomeScreen()
         {
+            Console.SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
             Console.Clear();
             Console.ResetColor();
 
